@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+
+      <%= form_with url: movies_path, method: :get, class: 'd-flex my-5' do %>
+        <%= text_field_tag :query, params[:query], class: 'form-control', placeholder: "Find a movie" %>
+        <%= submit_tag 'Search', class: 'btn btn-primary' %>
+      <% end %>
+
+
+
+      <% @documents.each do |document| %>
+        <%= render 'movie', movie: Movie.find(document.searchable_id) if document.searchable_type == 'Movie' %>
+        <%= render 'tv_show', tv_show: TvShow.find(document.searchable_id) if document.searchable_type == 'TvShow' %>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
